@@ -1,24 +1,21 @@
-import "./DoctorLogin.css";
-import { useNavigate} from "react-router-dom";
+import "./PatientLogin.css";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-
-const DoctorLogin = () => {
-  const navigate = useNavigate();
+const PatientLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="doctor-login-container">
       <div className="doctor-login-card">
 
-        <h2>Doctor Login</h2>
-        <p>Access your Medico Pro dashboard</p>
+        <h2>Patient Login</h2>
+        <p>Access your appointments and health records</p>
 
         <form>
           <div className="input-group">
             <label>Email</label>
             <input
               type="email"
-              placeholder="doctor@example.com"
+              placeholder="patient@example.com"
             />
           </div>
 
@@ -27,7 +24,7 @@ const DoctorLogin = () => {
             <div className="password-field">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder="Enter Password"
               />
               <span
                 className="eye-icon"
@@ -36,22 +33,12 @@ const DoctorLogin = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
             </div>
-            
           </div>
 
-          <button
-             type="button"
-             onClick={() => navigate("/doctor-dashboard")}
-          >
-             Login
+          <button type="submit">
+            Login
           </button>
-          
 
-          <span className="register-link"
-            onClick={() => navigate("/register")}
-          >
-            Don't have an account? Register
-          </span>
         </form>
 
       </div>
@@ -59,4 +46,4 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default PatientLogin;
