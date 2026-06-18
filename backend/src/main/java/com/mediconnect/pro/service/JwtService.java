@@ -49,4 +49,16 @@ public class JwtService {
             return false;
         }
     }
+
+    //Extract the email from the JWT token.
+    public String extractEmail(String token){
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
 }
