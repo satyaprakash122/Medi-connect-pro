@@ -1,5 +1,6 @@
 package com.mediconnect.pro.exception;
 
+import com.mediconnect.pro.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,12 +9,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(
+    public ResponseEntity<ApiResponse<Object>> handleRuntimeException(
             RuntimeException ex) {
 
-        return new ResponseEntity<>(
-                ex.getMessage(),
-                HttpStatus.BAD_REQUEST
-        );
+        return ResponseEntity.badRequest()
+                        .body(
+                                new ApiResponse<>(
+                                        false,
+                                        ex.getMessage(),
+                                        null
+                                )
+                        );
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -17,10 +19,14 @@ public class JwtService {
     private long expiration;
 
     //Generates token
-    public String generateToken(String email){
+    public String generateToken(String email, String role){
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
+
         return Jwts.builder()
+                .claims(claims)
                 .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
@@ -60,5 +66,18 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
+    }
+
+    //extract role
+    public String extractRole(String token) {
+
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("role", String.class);
     }
 }

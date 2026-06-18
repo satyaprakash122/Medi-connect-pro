@@ -1,5 +1,6 @@
 package com.mediconnect.pro.controller;
 
+import com.mediconnect.pro.dto.ApiResponse;
 import com.mediconnect.pro.dto.CreateDoctorRequest;
 import com.mediconnect.pro.entity.Doctor;
 import com.mediconnect.pro.service.DoctorService;
@@ -16,22 +17,42 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @PostMapping
-    public String createDoctor(@RequestBody CreateDoctorRequest request){
-        return doctorService.createDoctor(request);
+    public ApiResponse<String> createDoctor(@RequestBody CreateDoctorRequest request){
+        String result = doctorService.createDoctor(request);
+        return new ApiResponse<>(
+                true,
+                "Doctor profile created successfully",
+                result
+        );
     }
 
     @GetMapping
-    public List<Doctor> getAllDoctors(){
-        return doctorService.getAllDoctors();
+    public ApiResponse<List<Doctor>> getAllDoctors(){
+        List<Doctor> doctors = doctorService.getAllDoctors();
+        return new ApiResponse<>(
+                true,
+                "All doctors list fetched successfully",
+                doctors
+        );
     }
 
     @GetMapping("/{id}")
-    public Doctor getDoctorById(@PathVariable Long id){
-        return doctorService.getDoctorById(id);
+    public ApiResponse<Doctor> getDoctorById(@PathVariable Long id){
+        Doctor doctor = doctorService.getDoctorById(id);
+        return new ApiResponse<>(
+                true,
+                "doctor fetched successfully",
+                doctor
+        );
     }
 
     @GetMapping("/specialization/{specialization}")
-    public List<Doctor> getDoctorsBySpecialization(@PathVariable String specialization){
-        return doctorService.getDoctorBySpecialization(specialization);
+    public ApiResponse<List<Doctor>> getDoctorsBySpecialization(@PathVariable String specialization){
+        List<Doctor> doctors = doctorService.getDoctorBySpecialization(specialization);
+        return new ApiResponse<>(
+                true,
+                "All doctors by specialization fetched successfully",
+                doctors
+        );
     }
 }

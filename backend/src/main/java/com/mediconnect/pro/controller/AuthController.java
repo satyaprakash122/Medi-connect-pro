@@ -1,5 +1,6 @@
 package com.mediconnect.pro.controller;
 
+import com.mediconnect.pro.dto.ApiResponse;
 import com.mediconnect.pro.dto.LoginRequest;
 import com.mediconnect.pro.dto.LoginResponse;
 import com.mediconnect.pro.dto.RegisterRequest;
@@ -18,12 +19,25 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request){
-        return authService.register(request);
+    public ApiResponse<String> register(@RequestBody RegisterRequest request){
+        String result = authService.register(request);
+        return new ApiResponse<>(
+                true,
+                "User registered successfully",
+                result
+        );
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request){
-        return authService.login(request);
+    public ApiResponse<LoginResponse> login(
+            @RequestBody LoginRequest request){
+
+        LoginResponse response = authService.login(request);
+
+        return new ApiResponse<>(
+                true,
+                "Login successful",
+                response
+        );
     }
 }

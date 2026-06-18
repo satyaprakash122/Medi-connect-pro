@@ -1,5 +1,6 @@
 package com.mediconnect.pro.controller;
 
+import com.mediconnect.pro.dto.ApiResponse;
 import com.mediconnect.pro.dto.AppointmentResponse;
 import com.mediconnect.pro.dto.BookAppointmentRequest;
 import com.mediconnect.pro.dto.DoctorAppointmentResponse;
@@ -17,40 +18,71 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping//Book appointment controller
-    public String bookAppointment(@RequestBody BookAppointmentRequest request,
-                                  @RequestHeader("Authorization") String token){
-        return appointmentService.bookAppointment(request,token);
+    public ApiResponse<String> bookAppointment(@RequestBody BookAppointmentRequest request,
+                                       @RequestHeader("Authorization") String token){
+        String result = appointmentService.bookAppointment(request,token);
+        return new ApiResponse<>(
+                true,
+                "Appointment booked successfully",
+                result
+        );
     }
 
     //Get appointment status
     @GetMapping("/my")
-    public List<AppointmentResponse> getMyAppointments(@RequestHeader("Authorization") String token){
-        return appointmentService.getMyAppointments(token);
+    public ApiResponse<List<AppointmentResponse>> getMyAppointments(
+            @RequestHeader("Authorization") String token) {
+
+        List<AppointmentResponse> appointments =
+                appointmentService.getMyAppointments(token);
+
+        return new ApiResponse<>(
+                true,
+                "Appointments fetched successfully",
+                appointments
+        );
     }
 
     @GetMapping("/doctor")
-    public List<DoctorAppointmentResponse> getDoctorAppointments(
+    public ApiResponse<List<DoctorAppointmentResponse>> getDoctorAppointments(
             @RequestHeader("Authorization") String token) {
 
-        return appointmentService.getDoctorAppointments(token);
+        List<DoctorAppointmentResponse> appointments =
+                appointmentService.getDoctorAppointments(token);
+
+        return new ApiResponse<>(
+                true,
+                "Doctor appointments fetched successfully",
+                appointments
+        );
     }
 
     //approve appointment
     @PutMapping("/{appointmentId}/approve")
-    public String approveAppointment(
+    public ApiResponse<String> approveAppointment(
             @PathVariable Long appointmentId,
             @RequestHeader("Authorization") String token) {
 
-        return appointmentService
+        String result = appointmentService
                 .approveAppointment(appointmentId, token);
+        return new ApiResponse<>(
+                true,
+                "APproved successfully",
+                result
+        );
     }
 
     //Reject appointment
     @PutMapping("/{appointmentId}/reject")
-    public String rejectAppointment(
+    public ApiResponse<String> rejectAppointment(
             @PathVariable Long appointmentId,
             @RequestHeader("Authorization") String token) {
 
-        return appointmentService.rejectAppointment(appointmentId, token);
+        String result = appointmentService.rejectAppointment(appointmentId, token);
+        return new ApiResponse<>(
+                true,
+                "Rejected appointment",
+                result
+        );
     }
 }
