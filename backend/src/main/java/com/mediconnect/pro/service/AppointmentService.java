@@ -177,4 +177,31 @@ public class AppointmentService {
 
         return "Appointment rejected successfully";
     }
+
+    //Cancel your appointment service
+    public String cancelAppointment(Long appointmentId, String email) {
+
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        // Ensure patient owns the appointment
+        if (!appointment.getPatient().getEmail().equals(email)) {
+            throw new RuntimeException("You can only cancel your own appointments");
+        }
+
+        // Prevent cancelling rejected/cancelled appointments
+        if (appointment.getStatus() == AppointmentStatus.REJECTED ||
+                appointment.getStatus() == AppointmentStatus.CANCELLED) {
+
+            throw new RuntimeException(
+                    "This appointment cannot be cancelled"
+            );
+        }
+
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+
+        appointmentRepository.save(appointment);
+
+        return "Appointment cancelled successfully";
+    }
 }
