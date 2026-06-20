@@ -6,6 +6,7 @@ const Profiles = () => {
   return (
     <>
     <section className="profiles-section" id="profiles">
+      <section id="profiles"></section>
         <div className="profiles-header">
           <span className="section-label">
             Access Your Portal

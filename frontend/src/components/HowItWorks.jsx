@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 import "./HowItWorks.css";
 import { User, CalendarDays, Activity } from "lucide-react";
 
@@ -26,9 +26,26 @@ const steps = [
   },
 ];
 
-const HowItWorks = () => {
+
+  const HowItWorks = () => {
+  const navigate = useNavigate();
+
+  const handleStepClick = (id) => {
+    if (id === "01") {
+      navigate("/register");
+    }
+
+    if (id === "02") {
+      navigate("/appointment-booking");
+    }
+
+    if (id === "03") {
+      navigate("/patient-dashboard");
+    }
+  };
   return (
     <section className="how-it-works" id="how">
+      <section id="how-it-works"></section>
       <div className="how-header">
         <span className="section-label">Simple Process</span>
 
@@ -44,7 +61,9 @@ const HowItWorks = () => {
 
       <div className="steps-grid">
         {steps.map((step) => (
-          <div className="step-card" key={step.id}>
+          <div className="step-card" key={step.id}
+          onClick={() => handleStepClick(step.id)}
+          style={{ cursor: "pointer" }}>
             <div className="step-num">{step.id}</div>
 
             <div className="step-icon">

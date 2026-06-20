@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-
+ const navStyle = {
+  textDecoration: "none",
+  fontSize: "0.9rem",
+  fontWeight: 500,
+  color: "#0D2B45",
+  letterSpacing: "0.2px",
+};
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -47,41 +54,83 @@ function Navbar() {
       </a>
 
       {/* Nav Links */}
-      <ul style={{ display: "flex", gap: "36px", listStyle: "none", margin: 0, padding: 0 }}>
-        {["Home", "How It Works", "Gallery", "Contact Us", "About Us"].map((link) => (
-          <li key={link}>
-            <a href="#" style={{
-              textDecoration: "none",
-              fontSize: "0.9rem",
-              fontWeight: 500,
-              color: "#0D2B45",
-              letterSpacing: "0.2px"
-            }}>{link}</a>
-          </li>
-        ))}
-      </ul>
+      <ul
+  style={{
+    display: "flex",
+    gap: "36px",
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  }}
+>
+  <li>
+    <a href="#hero" style={navStyle}>
+      Home
+    </a>
+  </li>
+
+  <li>
+    <a href="#how-it-works" style={navStyle}>
+      How It Works
+    </a>
+  </li>
+
+  <li>
+    <a href="#gallery" style={navStyle}>
+      Gallery
+    </a>
+  </li>
+
+  <li>
+    <a href="#about-us" style={navStyle}>
+      About Us
+    </a>
+  </li>
+
+  <li>
+    <a href="#contact-us" style={navStyle}>
+      Contact Us
+    </a>
+  </li>
+
+  <li>
+    <a href="#profiles" style={navStyle}>
+      Profiles
+    </a>
+  </li>
+</ul>
 
       {/* Buttons */}
       <div style={{ display: "flex", gap: "12px" }}>
-        <a href="#" style={{
-          padding: "10px 20px",
-          borderRadius: "8px",
-          border: "1.5px solid #0A7B6C",
-          color: "#0A7B6C",
-          background: "transparent",
-          fontWeight: 600,
-          fontSize: "0.875rem",
-          textDecoration: "none"
-        }}>Login</a>
-        <a href="#" style={{
-          padding: "10px 20px",
-          borderRadius: "8px",
-          background: "#0A7B6C",
-          color: "white",
-          fontWeight: 600,
-          fontSize: "0.875rem",
-          textDecoration: "none"
-        }}>Register</a>
+        <Link
+    to="/doctor-login"
+    style={{
+      padding: "10px 20px",
+      borderRadius: "8px",
+      border: "1.5px solid #0A7B6C",
+      color: "#0A7B6C",
+      background: "transparent",
+      fontWeight: 600,
+      fontSize: "0.875rem",
+      textDecoration: "none"
+    }}
+  >
+    Login
+  </Link>
+        <Link
+    to="/register"
+    style={{
+      padding: "10px 20px",
+      borderRadius: "8px",
+      background: "#0A7B6C",
+      color: "white",
+      fontWeight: 600,
+      fontSize: "0.875rem",
+      textDecoration: "none"
+    }}
+  >
+    Register
+  </Link>
       </div>
 
     </nav>

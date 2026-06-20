@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 
+
 const Register = () => {
   const [role, setRole] = useState("Patient");
 
