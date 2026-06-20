@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section style={{
+    <section id="hero" style={{
       minHeight: "100vh",
       paddingTop: "72px",
       display: "grid",

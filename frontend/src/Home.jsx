@@ -3,6 +3,8 @@ import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
 import Gallery from "./components/Gallery";
 import Profiles from "./components/Profiles";
+import AboutUs from "./components/AboutUs";
+import ContactUs from "./components/ContactUs";
 
 function Home() {
   return (
@@ -12,6 +14,8 @@ function Home() {
       <HowItWorks />
       <Gallery />
       <Profiles />
+      <AboutUs />
+      <ContactUs />
     </>
   );
 }

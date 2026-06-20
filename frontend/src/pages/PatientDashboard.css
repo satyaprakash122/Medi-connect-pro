@@ -1,0 +1,77 @@
+.patient-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f8fb;
+}
+
+.patient-sidebar {
+  width: 250px;
+  background: #0d2b45;
+  color: white;
+  padding: 30px;
+}
+
+.patient-sidebar ul {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.patient-sidebar li {
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+.patient-sidebar li:hover {
+  color: #12a891;
+}
+
+.patient-main {
+  flex: 1;
+  padding: 30px;
+}
+
+.patient-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patient-stats {
+  margin-top: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+.patient-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,.05);
+}
+
+.patient-card h3 {
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+.appointment-table {
+  margin-top: 40px;
+  background: white;
+
+  padding: 25px;
+  border-radius: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}

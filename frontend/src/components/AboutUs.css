@@ -1,0 +1,26 @@
+.about-section {
+  padding: 80px 10%;
+  background: #f7fbfb;
+}
+
+.about-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  text-align: center;
+}
+
+.about-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+.about-grid div {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}

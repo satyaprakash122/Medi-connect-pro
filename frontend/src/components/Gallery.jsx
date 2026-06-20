@@ -31,7 +31,7 @@ const galleryImages = [
 
 const Gallery = () => {
   return (
-    <section className="gallery-section" id="gallery">
+    <section id="gallery" className="gallery-section">
       <div className="gallery-header">
         <span className="section-label">Our World</span>
 
