@@ -1,11 +1,13 @@
 import "./PatientLogin.css";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const PatientLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   return (
-    <div className="doctor-login-container">
-      <div className="doctor-login-card">
+    <div className="patient-login-container">
+      <div className="patient-login-card">
 
         <h2>Patient Login</h2>
         <p>Access your appointments and health records</p>
@@ -35,8 +37,11 @@ const PatientLogin = () => {
             </div>
           </div>
 
-          <button type="submit">
-            Login
+          <button
+              type="button"
+               onClick={() => navigate("/patient-dashboard")}
+          >
+             Login
           </button>
 
         </form>
