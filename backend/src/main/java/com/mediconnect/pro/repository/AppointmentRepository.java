@@ -34,4 +34,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             AppointmentStatus status,
             LocalDateTime time
     );
+
+    //It will free the time slot incase any appointment rejected or canceled
+    boolean existsByDoctorAndAppointmentDateAndAppointmentTimeAndStatusIn(
+            Doctor doctor,
+            LocalDate appointmentDate,
+            LocalTime appointmentTime,
+            List<AppointmentStatus> statuses
+    );
 }

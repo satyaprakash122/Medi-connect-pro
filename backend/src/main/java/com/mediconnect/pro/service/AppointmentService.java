@@ -45,12 +45,17 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findById(request.getDoctorId())
                 .orElseThrow(()-> new RuntimeException("Doctor not found"));
 
+        //If any appointment is cancelled or rejected then this time slot will be available.
         boolean slotExists =
                 appointmentRepository
-                        .existsByDoctorAndAppointmentDateAndAppointmentTime(
+                        .existsByDoctorAndAppointmentDateAndAppointmentTimeAndStatusIn(
                                 doctor,
                                 request.getAppointmentDate(),
-                                request.getAppointmentTime()
+                                request.getAppointmentTime(),
+                                List.of(
+                                        AppointmentStatus.PENDING,
+                                        AppointmentStatus.APPROVED
+                                )
                         );
         if (slotExists) {
             throw new RuntimeException(
