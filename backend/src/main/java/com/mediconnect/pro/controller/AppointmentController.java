@@ -7,6 +7,7 @@ import com.mediconnect.pro.dto.DoctorAppointmentResponse;
 import com.mediconnect.pro.entity.Appointment;
 import com.mediconnect.pro.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -83,6 +84,24 @@ public class AppointmentController {
                 true,
                 "Rejected appointment",
                 result
+        );
+    }
+
+    //Cancel appointment
+    @PutMapping("/{appointmentId}/cancel")
+    public ApiResponse<String> cancelAppointment(
+            @PathVariable Long appointmentId,
+            Authentication authentication) {
+
+        String email = authentication.getName();
+
+        String response = appointmentService
+                .cancelAppointment(appointmentId, email);
+
+        return new ApiResponse<>(
+                true,
+                response,
+                null
         );
     }
 }

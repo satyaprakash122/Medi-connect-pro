@@ -8,6 +8,7 @@ import com.mediconnect.pro.enums.AppointmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +28,18 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             Doctor doctor,
             LocalDate appointmentDate,
             LocalTime appointmentTime
+    );
+
+    List<Appointment> findByStatusAndCreatedAtBefore(
+            AppointmentStatus status,
+            LocalDateTime time
+    );
+
+    //It will free the time slot incase any appointment rejected or canceled
+    boolean existsByDoctorAndAppointmentDateAndAppointmentTimeAndStatusIn(
+            Doctor doctor,
+            LocalDate appointmentDate,
+            LocalTime appointmentTime,
+            List<AppointmentStatus> statuses
     );
 }

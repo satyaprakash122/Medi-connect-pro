@@ -45,12 +45,17 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findById(request.getDoctorId())
                 .orElseThrow(()-> new RuntimeException("Doctor not found"));
 
+        //If any appointment is cancelled or rejected then this time slot will be available.
         boolean slotExists =
                 appointmentRepository
-                        .existsByDoctorAndAppointmentDateAndAppointmentTime(
+                        .existsByDoctorAndAppointmentDateAndAppointmentTimeAndStatusIn(
                                 doctor,
                                 request.getAppointmentDate(),
-                                request.getAppointmentTime()
+                                request.getAppointmentTime(),
+                                List.of(
+                                        AppointmentStatus.PENDING,
+                                        AppointmentStatus.APPROVED
+                                )
                         );
         if (slotExists) {
             throw new RuntimeException(
@@ -176,5 +181,32 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
 
         return "Appointment rejected successfully";
+    }
+
+    //Cancel your appointment service
+    public String cancelAppointment(Long appointmentId, String email) {
+
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        // Ensure patient owns the appointment
+        if (!appointment.getPatient().getEmail().equals(email)) {
+            throw new RuntimeException("You can only cancel your own appointments");
+        }
+
+        // Prevent cancelling rejected/cancelled appointments
+        if (appointment.getStatus() == AppointmentStatus.REJECTED ||
+                appointment.getStatus() == AppointmentStatus.CANCELLED) {
+
+            throw new RuntimeException(
+                    "This appointment cannot be cancelled"
+            );
+        }
+
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+
+        appointmentRepository.save(appointment);
+
+        return "Appointment cancelled successfully";
     }
 }

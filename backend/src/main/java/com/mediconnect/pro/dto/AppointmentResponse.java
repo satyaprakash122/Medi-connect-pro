@@ -1,16 +1,15 @@
 package com.mediconnect.pro.dto;
 
 import com.mediconnect.pro.enums.AppointmentStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppointmentResponse {
     private Long appointmentId;
     private String doctorName;
