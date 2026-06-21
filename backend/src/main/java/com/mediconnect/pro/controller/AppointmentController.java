@@ -68,7 +68,7 @@ public class AppointmentController {
                 .approveAppointment(appointmentId, token);
         return new ApiResponse<>(
                 true,
-                "APproved successfully",
+                "Approved successfully",
                 result
         );
     }
